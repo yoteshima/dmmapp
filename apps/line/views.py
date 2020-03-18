@@ -18,12 +18,13 @@ def callback(request):
     token_type = auth_info['token_type']
 
     to = "U50b1954cd81f2c346c2b501c7140e0a7"
-    messages = "これってダメじゃね？"
-    pm_result = line_api.execute_push_message(token_type=token_type, token=token, to=to, messages=messages)
+    messages = json.loads(request.body)
+    pm_result = line_api.execute_push_message(token_type=token_type, token=token, to=to, messages=str(messages))
 
     display_data = {
         "res1": auth_info,
-        "res2": pm_result
+        "res2": pm_result,
+        "request": messages
     }
 
     return render(request, 'line/index.html', {'res': display_data})
