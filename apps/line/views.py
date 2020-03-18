@@ -9,13 +9,18 @@ from apps.line.utils import LineApi
 line_api = LineApi()
 
 def callback(request):
-    content = line_api.execute_auth()
+    auth_info = line_api.execute_auth()
     
-    token = content['access_token']
-    token_type = content['token_type']
+    token = auth_info['access_token']
+    token_type = auth_info['token_type']
 
     to = "U50b1954cd81f2c346c2b501c7140e0a7"
     messages = "これってダメじゃね？"
-    res  = line_api.execute_push_message(token_type=token_type, token=token, to=to, messages=messages)
+    pm_result = line_api.execute_push_message(token_type=token_type, token=token, to=to, messages=messages)
 
-    return render(request, 'line/index.html', {'res': res})
+    display_data = {
+        "res1": auth_info,
+        "res2": pm_result
+    }
+
+    return render(request, 'line/index.html', {'res': display_data})
