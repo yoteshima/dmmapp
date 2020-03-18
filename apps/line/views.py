@@ -4,10 +4,13 @@
 import json
 
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+
 from apps.line.utils import LineApi
 
 line_api = LineApi()
 
+@csrf_exempt
 def callback(request):
     auth_info = line_api.execute_auth()
     
