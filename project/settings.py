@@ -109,3 +109,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# LINE用Jsonファイル
+#LINE_JSON_PATH = 'apps/line/json'
+LINE_JSON_PATH = 'apps\\line\\json'
+LINE_JSON_DIR = os.path.join(BASE_DIR, LINE_JSON_PATH)
+
+# LINE APIクライアント情報
+CLIENT_ID = "1653963182"
+CLIENT_SECRET = "a982cf070c85f7b2aa04469bee9ff131"
