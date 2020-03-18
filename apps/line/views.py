@@ -18,8 +18,9 @@ def callback(request):
     token_type = auth_info['token_type']
 
     to = "U50b1954cd81f2c346c2b501c7140e0a7"
-    messages = json.loads(request.body)
-    pm_result = line_api.execute_push_message(token_type=token_type, token=token, to=to, messages=str(messages))
+    request_body = json.loads(request.body)
+    messages = request_body['events'][0]['message']['text']
+    pm_result = line_api.execute_push_message(token_type=token_type, token=token, to=to, messages=messages)
 
     display_data = {
         "res1": auth_info,
