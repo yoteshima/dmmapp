@@ -25,13 +25,14 @@ class LineApi:
         return json_data
 
     def execute_request(self, endpoint, header, body, method="GET"):
-        json_body = json.dumps(body)
+        #json_body = json.dumps(body)
         if method == "GET":
             pass
         elif method == "POST":
-            response = requests.post(endpoint, headers=header, data=json_body)
-        
-        return json.load(response.text)
+            response = requests.post(url=endpoint, headers=header, data=body)
+
+        #return json.load(response.text)
+        return response
     
     def execute_auth(self):
         # auth 情報
@@ -41,12 +42,13 @@ class LineApi:
 
         # リクエスト用ヘッダー、ボディ作成 
         json_data = self.json_read(file_name=json_name)
-        header = json_data['header']
-        body =json_data['body']
+        header = json_data['header'][0]
+        body =json_data['body'][0]
         body['client_id'] = self.client_id
         body['client_secret'] = self.client_secret
         
         # API実行
-        context = self.execute_request(endpoint=endpoint, header=header, body=body, method=method)
-
-        return context
+        response = self.execute_request(endpoint=endpoint, header=header, body=body, method=method)
+        content = json.loads(response.content)
+        # レスポンスの中身を返却
+        return content
