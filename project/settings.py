@@ -113,8 +113,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # LINE用Jsonファイル
-#LINE_JSON_PATH = 'apps/line/json'
-LINE_JSON_PATH = 'apps\\line\\json'
+LINE_JSON_PATH = 'apps/line/json'
+#LINE_JSON_PATH = 'apps\\line\\json'
 LINE_JSON_DIR = os.path.join(BASE_DIR, LINE_JSON_PATH)
 
 # LINE APIクライアント情報
