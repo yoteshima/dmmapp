@@ -1,0 +1,20 @@
+{
+    "header": [
+        {
+            "Content-Type": "application/json",
+            "Authorization": ""
+        }
+    ],
+    "body":[
+        {
+            "to": "",
+            "messages": [
+                {
+                    "type": "text",
+                    "message": ""
+                }
+            ],
+            "notificationDisabled": false
+        }
+    ]
+}
