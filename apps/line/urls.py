@@ -3,8 +3,8 @@
 
 from django.urls import path
 
-from apps.line.views import post_auth
+from apps.line.views import callback
 
 urlpatterns = [
-    path(r'postauth/', post_auth, name='post_auth'),
+    path(r'callback/', callback, name='callback'),
 ]

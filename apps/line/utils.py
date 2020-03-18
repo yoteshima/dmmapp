@@ -27,11 +27,10 @@ class LineApi:
     def execute_request(self, endpoint, header, body, method="GET"):
         #json_body = json.dumps(body)
         if method == "GET":
-            pass
+            response = requests.get(url=endpoint, headers=header, data=body)
         elif method == "POST":
             response = requests.post(url=endpoint, headers=header, data=body)
 
-        #return json.load(response.text)
         return response
     
     def execute_auth(self):
@@ -40,7 +39,7 @@ class LineApi:
         endpoint = "https://api.line.me/v2/oauth/accessToken"
         method = "POST"
 
-        # リクエスト用ヘッダー、ボディ作成 
+        # リクエスト用ヘッダ、ボディ作成 
         json_data = self.json_read(file_name=json_name)
         header = json_data['header'][0]
         body =json_data['body'][0]
@@ -52,3 +51,52 @@ class LineApi:
         content = json.loads(response.content)
         # レスポンスの中身を返却
         return content
+    
+    def execute_push_message(self, token_type, token, to, messages, notice=False):
+        # push message 情報
+        json_name = "push_message.json"
+        endpoint = "https://api.line.me/v2/bot/message/push"
+        method = "POST"
+
+        # リクエスト用ヘッダ作成
+        json_data = self.json_read(file_name=json_name)
+        header = json_data['header'][0]
+        header['Authorization'] = "{} {}".format(token_type, token)
+        # リクエスト用ボディ作成
+        body =json_data['body'][0]
+        body['to'] = to
+        body['messages'][0]["text"] = messages
+        if not notice:
+            body['notificationDisabled'] = True
+        json_body = json.dumps(body)
+
+        # API実行
+        response = self.execute_request(endpoint=endpoint, header=header, body=json_body, method=method)
+        print(response)
+        content = json.loads(response.content)
+
+        return content
+        
+    def execute_get_profile(self, token_type, token):
+        # get profile 情報
+        json_name = "profile.json"
+        endpoint = "https://api.line.me/v2/profile"
+        method = "GET"
+
+        # リクエスト用ヘッダ作成
+        json_data = self.json_read(file_name=json_name)
+        header = json_data['header'][0]
+        header['Authorization'] = "{} {}".format(token_type, token)
+        # リクエスト用ボディ作成
+        body =json_data['body']
+
+        # API実行
+        response = self.execute_request(endpoint=endpoint, header=header, body=body, method=method)
+        content = json.loads(response.content)
+
+        return content
+
+
+
+
+
