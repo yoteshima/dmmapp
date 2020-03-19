@@ -20,7 +20,8 @@ def callback(request):
 
     to = settings.USER_ID
     request_body = json.loads(request.body)
-    messages = request_body['events'][0]['message']['text']
+    #messages = request_body['events'][0]['message']['text']
+    messages = request_body
     pm_result = line_api.execute_push_message(token_type=token_type, token=token, to=to, messages=messages)
 
     display_data = {
