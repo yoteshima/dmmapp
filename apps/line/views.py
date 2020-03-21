@@ -22,11 +22,11 @@ def callback(request):
     to = ""
     messages = ""
     try:
-        to = request_body['events'][0]['replyToken']
+        to = request_body['events'][0]['source']['userId']
         messages = request_body['events'][0]['message']['text']
     except:
         to = settings.MY_USER_ID
-        messages = "error"
+        messages = str(request_body)
     pm_result = line_api.execute_push_message(token_type=token_type, token=token, to=to, messages=messages)
 
     display_data = {
