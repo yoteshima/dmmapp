@@ -22,7 +22,7 @@ def callback(request):
     to = ""
     messages = ""
     try:
-        to = request_body['events'][0]['source']['UserId']
+        to = request_body['events'][0]['replyToken']
         messages = request_body['events'][0]['message']['text']
     except:
         to = settings.MY_USER_ID
