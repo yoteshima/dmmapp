@@ -18,7 +18,7 @@ def callback(request):
     token = auth_info['access_token']
     token_type = auth_info['token_type']
 
-    to = settings.USER_ID
+    to = settings.MY_USER_ID
     request_body = json.loads(request.body)
     #messages = request_body['events'][0]['message']['text']
     messages = request_body
