@@ -63,7 +63,7 @@ class LineApi:
         header = json_data['header'][0]
         header['Authorization'] = "{} {}".format(token_type, token)
         # リクエスト用ボディ作成
-        body =json_data['body'][0]
+        body = json_data['body'][0]
         body['to'] = to
         body['messages'][0]["text"] = messages
         if not notice:
@@ -72,7 +72,6 @@ class LineApi:
 
         # API実行
         response = self.execute_request(endpoint=endpoint, header=header, body=json_body, method=method)
-        print(response)
         content = json.loads(response.content)
 
         return content

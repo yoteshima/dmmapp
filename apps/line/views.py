@@ -18,11 +18,15 @@ def callback(request):
     token = auth_info['access_token']
     token_type = auth_info['token_type']
 
-    #to = settings.MY_USER_ID
-    to = "U50b1954cd81f2c346c2b501c7140e0a7"
     request_body = json.loads(request.body)
-    #messages = request_body['events'][0]['message']['text']
-    messages = request_body
+    to = ""
+    messages = ""
+    try:
+        to = request_body['events'][0]['source']['UserId']
+        messages = request_body['events'][0]['message']['text']
+    except:
+        to = settings.MY_USER_ID
+        messages = "error"
     pm_result = line_api.execute_push_message(token_type=token_type, token=token, to=to, messages=messages)
 
     display_data = {
